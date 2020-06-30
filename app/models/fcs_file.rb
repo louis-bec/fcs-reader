@@ -1,0 +1,2 @@
+class FcsFile < ApplicationRecord
+end
