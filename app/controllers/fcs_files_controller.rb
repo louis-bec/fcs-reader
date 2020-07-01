@@ -10,8 +10,8 @@ class FcsFilesController < ApplicationController
   def create
     @fcs_file = FcsFile.new(fcs_params)
 
-    if @fcs_file.after_save
-      redirect_to fcs_file_path, notice: "uploaed"
+    if @fcs_file.save
+      redirect_to fcs_files_path, notice: "uploaed"
     else
       render "new"
     end
@@ -19,9 +19,8 @@ class FcsFilesController < ApplicationController
 
   def destroy
     @fcs_file = FcsFile.find(params[:id])
-    @fcs_file.destory
-
-    redirect_to fcs_file_path, notice: "deleted"
+    @fcs_file.destroy
+    redirect_to fcs_files_path, notice: "deleted"
   end
 
   private
