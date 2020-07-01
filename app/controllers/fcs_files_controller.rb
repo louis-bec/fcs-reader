@@ -18,6 +18,10 @@ class FcsFilesController < ApplicationController
     end
   end
 
+  def show
+    @fcs_file = FcsFile.find(params[:id])
+  end
+
   def destroy
     @fcs_file = FcsFile.find(params[:id])
     @fcs_file.destroy
