@@ -10,7 +10,8 @@ class FcsFilesController < ApplicationController
   def create
     @fcs_file = FcsFile.new(fcs_params)
 
-    if @fcs_file.save
+    saved_file = @fcs_file.save
+    if saved_file
       redirect_to fcs_files_path, notice: "uploaed"
     else
       render "new"
