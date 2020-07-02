@@ -25,10 +25,10 @@ class FcsFilesController < ApplicationController
     file_path = "#{Dir.pwd}/public#{@fcs_file.attachment_url}"
     begin
       file = File.open(file_path)
-      file_data = file.read
+      @file_data = file.read
       puts 'file read done'
-      FCSParse.process_file(file_path)
-      puts 'fcs file parsed!'
+      # FCSParse.process_file(file_path)
+      # puts 'fcs file parsed!'
     rescue StandardError => e
       redirect_to fcs_files_path, notice: e.message
     end
