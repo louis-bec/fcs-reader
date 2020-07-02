@@ -8,6 +8,8 @@
     margin-top: -72px;
     padding-top: 72px;
 
+    background-image: url(asset_path('pappercut.png'));
+
     .wrapper-inner {
         height: 100%;
         display: flex;
@@ -16,6 +18,7 @@
 
         .wrapper-welcome {
             text-align: center;
+            color: #ffffff;
 
             .slogan {}
 
