@@ -1,5 +1,3 @@
-require 'fcsparse'
-
 class FcsFilesController < ApplicationController
   def index
     @fcs_files = FcsFile.all
@@ -26,7 +24,8 @@ class FcsFilesController < ApplicationController
     begin
       file = File.open(file_path)
       @file_data = file.read
-      puts 'file read done'
+      parser = FcsFileParser.new
+      puts parser.open file_path
       # FCSParse.process_file(file_path)
       # puts 'fcs file parsed!'
     rescue StandardError => e
