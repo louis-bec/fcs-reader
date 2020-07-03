@@ -58,3 +58,5 @@ gem "carrierwave", "~> 2.1"
 gem "bootstrap-sass", "~> 3.4"
 
 gem "fcsparse", "~> 0.2.0"
+
+gem "rspec", "~> 3.9"
