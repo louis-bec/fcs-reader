@@ -1,3 +1,5 @@
+require('fcsparse')
+
 class FcsFileParser
   def initialize
     @file_name
@@ -18,7 +20,7 @@ class FcsFileParser
     begin
       FCSParse.process_file(path)
     rescue StandardError => e
-      e.message
+      raise e
     end
   end
 end
