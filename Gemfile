@@ -64,3 +64,5 @@ gem "haml", "~> 5.1"
 gem "haml-rails", "~> 2.0"
 
 gem "aws-sdk", "~> 3.0"
+
+gem "aws-sdk-rails", "~> 3.1"

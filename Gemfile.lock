@@ -582,6 +582,9 @@ GEM
     aws-sdk-quicksight (1.25.0)
       aws-sdk-core (~> 3, >= 3.99.0)
       aws-sigv4 (~> 1.1)
+    aws-sdk-rails (3.1.0)
+      aws-sdk-ses (~> 1)
+      railties (>= 5.2.0)
     aws-sdk-ram (1.19.0)
       aws-sdk-core (~> 3, >= 3.99.0)
       aws-sigv4 (~> 1.1)
@@ -1171,6 +1174,7 @@ PLATFORMS
 
 DEPENDENCIES
   aws-sdk (~> 3.0)
+  aws-sdk-rails (~> 3.1)
   bootsnap (>= 1.4.2)
   bootstrap-sass (~> 3.4)
   byebug
