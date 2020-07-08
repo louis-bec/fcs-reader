@@ -1,0 +1,21 @@
+.container
+  - if !flash[:notice].blank?
+    %div
+      = flash[:notice]
+  = link_to "New FCS file", new_fcs_file_path
+  %br/
+  %br/
+  %table.table.table-striped.table-hover
+    %thead
+      %tr
+        %th File Name
+        %th Open
+        %th Download Link
+        %th Action
+    %tbody
+      - @fcs_files.each do |file|
+        %tr
+          %td= file.name
+          %td= link_to "Open", fcs_file_path(file.id)
+          %td= link_to "Download", file.attachment_url
+          %td= link_to "Delete",  file, method: :delete, data: {confirm: "Are you sure you want to delete #{file.name}?"}

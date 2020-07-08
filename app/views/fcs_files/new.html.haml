@@ -1,0 +1,22 @@
+.container
+  - if !@fcs_file.errors.empty?
+    %div
+      %ul
+        - @fcs_file.errors.full_messages.each do |msg|
+          %li= msg
+  .container
+    - if !@fcs_file.errors.empty?
+      %div
+        %ul
+          - @fcs_file.errors.full_messages.each do |msg|
+            %li= msg
+    %div
+      = form_for @fcs_file, html: { multipart: true } do |f|
+        = f.label :name
+        = f.text_field :name
+        %br/
+        %br/
+        = f.label :attachment
+        = f.file_field :attachment
+        %br/
+        = f.submit "Save"
