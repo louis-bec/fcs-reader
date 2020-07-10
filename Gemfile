@@ -66,3 +66,8 @@ gem "haml-rails", "~> 2.0"
 gem "aws-sdk", "~> 3.0"
 
 gem "aws-sdk-rails", "~> 3.1"
+
+gem "rspec", "~> 3.9"
+
+gem "debase", "~> 0.2.4"
+gem "ruby-debug-ide", "~> 0.7.2"
