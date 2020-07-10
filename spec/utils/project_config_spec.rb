@@ -2,24 +2,48 @@
 
 require 'rails_helper'
 
-RSpce.describe ProjectConfig do
-  context 'when read config successfully' do
+RSpec.describe ProjectConfig do
+  context 'read config successfully' do
     before do
-      # set stub global variable - CONFIG
-      $CONFIG = {
-        'aws': {
-          's3_bucket_name': 'test_bucket_name',
-          's3_region': 'test_region'
+      allow(Rails.configuration).to receive(:project_config) do
+        {
+          :aws => {
+            :s3_bucket_name => 'test_bucket_name',
+            :s3_region => 'test_region'
+          }
         }
-      }
+      end
     end
 
-    it 'read aws s3 bucket name from config file' do
+    it 'return aws s3 bucket name from config file' do
       expect(ProjectConfig.aws_s3_bucket_name).to eq('test_bucket_name')
     end
 
-    it 'read asw s3 region from config file' do
+    it 'return asw s3 region from config file' do
       expect(ProjectConfig.aws_s3_region).to eq('test_region')
+    end
+  end
+
+  context 'failed to read config' do
+    before do
+      allow(Rails.configuration).to receive(:project_config) do
+        {
+          :aws => {}
+        }
+      end
+    end
+
+    it 'raise error since aws s3 bucket name not exist' do
+      begin
+        ProjectConfig.aws_s3_bucket_name
+        expect(1).to eq(0)
+      rescue StandardError => e
+        expect(e.message).to eq('can not find s3_bucket_name from aws')
+      end
+    end
+
+    it 'return no_region as default value' do
+      expect(ProjectConfig.aws_s3_region).to eq('no_region')
     end
   end
 end

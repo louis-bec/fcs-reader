@@ -19,16 +19,19 @@ class ProjectConfig
 
       value = Rails.configuration.project_config
 
+      parent = 'root'
+
       until path.empty?
         key = path.shift
 
         if value.key? key
           value = value[key]
         else
-          raise "can not find #{key} from #{path_backup}" if default == :no_default
+          raise "can not find #{key} from #{parent}" if default == :no_default
 
           return default
         end
+        parent = key
       end
       value
     end
