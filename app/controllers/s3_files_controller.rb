@@ -1,8 +1,24 @@
+# frozen_string_literal: true
+
 require 'aws-sdk'
 
 class S3FilesController < ApplicationController
   def index
-    @s3_files = S3File.all
+    # @s3_files = S3File.all
+    s3 = Aws::S3::Resource.new(region: ProjectConfig.aws_s3_region)
+    bucket_name = ProjectConfig.aws_s3_bucket_name
+    bucket = s3.bucket(bucket_name)
+
+    if bucket.exists?
+      @s3_files = bucket.objects.limit(50).map do |obj|
+        {
+          name: obj.key,
+          url: obj.public_url
+        }
+      end
+    else
+      flash[:notice] = "bucket - #{bucket_name} not exists"
+    end
   end
 
   def new
@@ -12,6 +28,7 @@ class S3FilesController < ApplicationController
   def create
     @s3_file = S3File.new(s3_file_params)
     saved_file = @s3_file.save
+    notice_message = ''
 
     if saved_file
       # upload file to s3
@@ -25,28 +42,38 @@ class S3FilesController < ApplicationController
 
         # Check if file is already in bucket
         if bucket.object(name).exists?
-          puts "#{name} already exists in the bucket"
+          notice_message = "#{name} already exists in the bucket!"
         else
           obj = bucket.object(name)
           obj.upload_file(path)
-          puts "Uploaded '%s' to S3!" % name
+          notice_message = "Uploaded #{name} to S3!"
         end
       else
-        NO_SUCH_BUCKET % bucket_name
+        notice_message = "No such bucket - #{bucket_name}!"
       end
     else
-      puts 'file save failed'
+      notice_message = 'file save failed!'
     end
+    redirect_to s3_files_path, notice: notice_message
   end
 
   def show
-    @s3_file = S3File.find(params[:id])
+    # @s3_file = S3File.find(params[:id])
+    s3 = Aws::S3::Resource.new(region: ProjectConfig.aws_s3_region)
+    bucket_name = ProjectConfig.aws_s3_bucket_name
+    @obj = s3.bucket(bucket_name).object(params[:name])
+    puts @obj
   end
 
   def destroy
-    @s3_file = S3File.find(params[:id])
-    @s3_file.destroy
-    redirect_to s3_files_path, notice: 'file deleted from s3'
+    # @s3_file = S3File.find(params[:id])
+    # @s3_file.destroy
+    # redirect_to s3_files_path, notice: 'file deleted from s3'
+    s3 = Aws::S3::Resource.new(region: ProjectConfig.aws_s3_region)
+    bucket_name = ProjectConfig.aws_s3_bucket_name
+    obj = s3.bucket(bucket_name).object(params[:name])
+    result = obj.delete
+    redirect_to s3_files_path, notice: "file - #{params[:name]} deleted!"
   end
 
   def download

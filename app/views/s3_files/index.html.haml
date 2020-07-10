@@ -16,9 +16,9 @@
       %tbody
         - @s3_files.each do |file|
           %tr
-            %td= file.name
-            %td= link_to "Open", fcs_file_path(file.id)
-            %td= link_to "Download", '-'
-            %td= link_to "Delete",  file, method: :delete, data: {confirm: "Are you sure you want to delete #{file.name}?"}
+            %td= file[:name]
+            %td= link_to "Open", controller: 's3_files', action: 'show', name: file[:name]
+            %td= link_to "Download", file[:url], target: '_blank'
+            %td= link_to "Delete",  "/s3_file/delete?name=#{file[:name]}", data: { confirm: "Are you sure to delete #{file[:name]}?"}
   - else
     %div No file waas uploaded, you can upload one.

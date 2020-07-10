@@ -4,5 +4,7 @@ Rails.application.routes.draw do
   get 'welcome/index'
   # TODO: could have some special option for show action, like singular?
   resources :fcs_files, only: [:index, :new, :show, :create, :destroy]
-  resources :s3_files, only: [:index, :new, :show, :create, :destroy]
+  resources :s3_files, only: [:index, :new, :create]
+  get 's3_file/show', to: 's3_files#show'
+  get 's3_file/delete', to: 's3_files#destroy'
 end
