@@ -1,3 +1,5 @@
+require 'aws-sdk'
+
 class S3FilesController < ApplicationController
   def index
     @s3_files = S3File.all
@@ -9,11 +11,31 @@ class S3FilesController < ApplicationController
 
   def create
     @s3_file = S3File.new(s3_file_params)
+    saved_file = @s3_file.save
 
-    if @s3_file.save
-      redirect_to fcs_files_path, notice: 'file uploaded to the s3'
+    if saved_file
+      # upload file to s3
+      s3 = Aws::S3::Resource.new(region: ProjectConfig.aws_s3_region)
+      bucket_name = ProjectConfig.aws_s3_bucket_name
+      bucket = s3.bucket(bucket_name)
+
+      if bucket.exists?
+        name = s3_file_params[:url].original_filename
+        path = "#{Dir.getwd}/public#{@s3_file.url_url}"
+
+        # Check if file is already in bucket
+        if bucket.object(name).exists?
+          puts "#{name} already exists in the bucket"
+        else
+          obj = bucket.object(name)
+          obj.upload_file(path)
+          puts "Uploaded '%s' to S3!" % name
+        end
+      else
+        NO_SUCH_BUCKET % bucket_name
+      end
     else
-      render 'new'
+      puts 'file save failed'
     end
   end
 
@@ -25,6 +47,10 @@ class S3FilesController < ApplicationController
     @s3_file = S3File.find(params[:id])
     @s3_file.destroy
     redirect_to s3_files_path, notice: 'file deleted from s3'
+  end
+
+  def download
+    puts 'file will be download'
   end
 
   private
