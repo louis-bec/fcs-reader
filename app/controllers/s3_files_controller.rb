@@ -4,7 +4,6 @@ require 'aws-sdk'
 
 class S3FilesController < ApplicationController
   def index
-    # @s3_files = S3File.all
     s3 = Aws::S3::Resource.new(region: ProjectConfig.aws_s3_region)
     bucket_name = ProjectConfig.aws_s3_bucket_name
     bucket = s3.bucket(bucket_name)
@@ -58,7 +57,7 @@ class S3FilesController < ApplicationController
   end
 
   def show
-    # @s3_file = S3File.find(params[:id])
+
     s3 = Aws::S3::Resource.new(region: ProjectConfig.aws_s3_region)
     bucket_name = ProjectConfig.aws_s3_bucket_name
     @obj = s3.bucket(bucket_name).object(params[:name])
@@ -66,13 +65,10 @@ class S3FilesController < ApplicationController
   end
 
   def destroy
-    # @s3_file = S3File.find(params[:id])
-    # @s3_file.destroy
-    # redirect_to s3_files_path, notice: 'file deleted from s3'
     s3 = Aws::S3::Resource.new(region: ProjectConfig.aws_s3_region)
     bucket_name = ProjectConfig.aws_s3_bucket_name
     obj = s3.bucket(bucket_name).object(params[:name])
-    result = obj.delete
+    obj.delete
     redirect_to s3_files_path, notice: "file - #{params[:name]} deleted!"
   end
 
