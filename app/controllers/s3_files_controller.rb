@@ -57,7 +57,6 @@ class S3FilesController < ApplicationController
   end
 
   def show
-
     s3 = Aws::S3::Resource.new(region: ProjectConfig.aws_s3_region)
     bucket_name = ProjectConfig.aws_s3_bucket_name
     @obj = s3.bucket(bucket_name).object(params[:name])
