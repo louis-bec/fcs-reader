@@ -36,6 +36,9 @@
 # Ignore config file
 /config/config.yml
 
+# tmp download
+/public/tmp_download
+
 /public/packs
 /public/packs-test
 /public/uploads

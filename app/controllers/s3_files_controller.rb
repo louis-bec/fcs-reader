@@ -95,11 +95,18 @@ class S3FilesController < ApplicationController
 
   def download_s3_object(s3_obj)
     # download from s3 to local if file not exists
-    Dir.mktmpdir do |dir|
-      file_path = "#{dir}/#{s3_obj.key}"
-      raise 'can\'t not download from s3' unless s3_obj.download_file file_path
+    s3_tmp_download_dir = "#{Rails.root}/public/tmp_download"
+    Dir.mkdir s3_tmp_download_dir unless Dir.exist? s3_tmp_download_dir
+    # Dir.mktmpdir nil, s3_tmp_download_dir do |dir|
+    #   file_path = "#{dir}/#{s3_obj.key}"
+    #   raise 'can\'t not download from s3' unless s3_obj.download_file file_path
 
-      send_file file_path, filename: s3_obj.key
-    end
+    #   send_file file_path, filename: s3_obj.key
+    #   puts "success"
+    # end
+    file_path = "#{s3_tmp_download_dir}/#{s3_obj.key}"
+    raise 'can\'t not download from s3' unless s3_obj.download_file file_path
+
+    send_file file_path, filename: s3_obj.key
   end
 end
