@@ -18,7 +18,7 @@
           %tr
             %td= file[:name]
             %td= link_to "Open", file[:url], target: '_blank'
-            -# %td= link_to "Download", file[:download_url], download: ''
+            %td= link_to "Download", "/s3_file/download?name=#{file[:name]}", target: '_blank'
             %td= link_to "Delete",  "/s3_file/delete?name=#{file[:name]}", data: { confirm: "Are you sure to delete #{file[:name]}?"}
   - else
     %div No file waas uploaded, you can upload one.

@@ -73,12 +73,33 @@ class S3FilesController < ApplicationController
   end
 
   def download
-    puts 'file will be download'
+    render layout: false
+    s3 = Aws::S3::Resource.new(region: ProjectConfig.aws_s3_region)
+    bucket_name = ProjectConfig.aws_s3_bucket_name
+    obj = s3.bucket(bucket_name).object(params[:name])
+    # check if object exist on s3
+    if obj.exists?
+      download_s3_object obj
+    else
+      # is there anyway to display a message on previous page??
+      # leave error handler for now
+      flash[:notice] = "file - #{obj.key} not exists."
+    end
   end
 
   private
 
   def s3_file_params
     params.require(:s3_file).permit(:name, :url)
+  end
+
+  def download_s3_object(s3_obj)
+    # download from s3 to local if file not exists
+    Dir.mktmpdir do |dir|
+      file_path = "#{dir}/#{s3_obj.key}"
+      raise 'can\'t not download from s3' unless s3_obj.download_file file_path
+
+      send_file file_path, filename: s3_obj.key
+    end
   end
 end

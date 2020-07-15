@@ -7,4 +7,5 @@ Rails.application.routes.draw do
   resources :s3_files, only: [:index, :new, :create]
   get 's3_file/show', to: 's3_files#show'
   get 's3_file/delete', to: 's3_files#destroy'
+  get 's3_file/download', to: 's3_files#download'
 end
