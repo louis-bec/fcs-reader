@@ -12,7 +12,8 @@ class S3FilesController < ApplicationController
       @s3_files = bucket.objects.limit(50).map do |obj|
         {
           name: obj.key,
-          url: obj.public_url
+          url: obj.presigned_url(:get),
+          download_url: obj.presigned_url(:get)
         }
       end
     else

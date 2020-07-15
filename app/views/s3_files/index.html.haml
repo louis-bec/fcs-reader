@@ -11,14 +11,14 @@
         %tr
           %th File Name
           %th Open
-          -# %th Download Link
+          -# %th Download
           %th Action
       %tbody
         - @s3_files.each do |file|
           %tr
             %td= file[:name]
-            %td= link_to "Open", controller: 's3_files', action: 'show', name: file[:name]
-            -# %td= link_to "Download", file[:url], target: '_blank'
+            %td= link_to "Open", file[:url], target: '_blank'
+            -# %td= link_to "Download", file[:download_url], download: ''
             %td= link_to "Delete",  "/s3_file/delete?name=#{file[:name]}", data: { confirm: "Are you sure to delete #{file[:name]}?"}
   - else
     %div No file waas uploaded, you can upload one.
