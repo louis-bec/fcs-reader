@@ -37,7 +37,7 @@ class S3FilesController < ApplicationController
       bucket = s3.bucket(bucket_name)
 
       if bucket.exists?
-        name = s3_file_params[:url].original_filename
+        name = [ProjectConfig.aws_s3_upload_path, s3_file_params[:url].original_filename].join('/')
         path = "#{Dir.getwd}/public#{@s3_file.url_url}"
 
         # Check if file is already in bucket

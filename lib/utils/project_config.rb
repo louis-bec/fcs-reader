@@ -11,6 +11,10 @@ class ProjectConfig
       get_config [:aws, :s3_region], 'no_region'
     end
 
+    def aws_s3_upload_path
+      get_config [:aws, :s3_upload_path], ''
+    end
+
     def get_config(path, default = :no_default)
       path = [path] unless path.is_a? Array
       path_backup = path.clone
