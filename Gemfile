@@ -72,4 +72,4 @@ gem "rspec", "~> 3.9"
 gem "debase", "~> 0.2.4"
 gem "ruby-debug-ide", "~> 0.7.2"
 
-gem "rails-backbone", "~> 1.2"
+gem "backbone-on-rails", "~> 1.2"
