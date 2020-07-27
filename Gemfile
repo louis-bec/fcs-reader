@@ -73,3 +73,6 @@ gem "debase", "~> 0.2.4"
 gem "ruby-debug-ide", "~> 0.7.2"
 
 gem "backbone-on-rails", "~> 1.2"
+
+gem "sprockets", "~> 4.0"
+gem "sprockets-rails", "~> 3.2"

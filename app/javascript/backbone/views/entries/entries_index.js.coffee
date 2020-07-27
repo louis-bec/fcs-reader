@@ -1,7 +1,7 @@
 class FcsReader.Views.EntriesIndex extends Backbone.View
 
-  template: JST['entries/index']
+  # template: JST['entries/index']
 
   render: -> 
-    $(@el).html(@template())
+    $(@el).html("<h1> Hellow Wrold </h1>")
     this
