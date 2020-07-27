@@ -3,7 +3,9 @@ window.FcsReader =
   Collections: {}
   Routers: {}
   Views: {}
-  init: -> alert 'check check!'
+  init: -> 
+    new FcsReader.Routers.Entries()
+    Backbone.history.start()
 
 $(document).ready -> 
   FcsReader.init()

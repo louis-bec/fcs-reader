@@ -8,9 +8,16 @@ require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
 require("jquery")
-
+require("underscore")
+require("backbone")
 # import backbone related coffee files
 require("backbone/fcs_reader")
+# import routers
+# TODO: maybe can move this logic to the routers folder
+backbone_coffee = require.context('backbone', true, /^.*\.coffee$/)
+for file in backbone_coffee.keys()
+  do (file) ->
+    backbone_coffee(file)
 
 # Uncomment to copy all static images under ../images to the output folder and reference
 # them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
