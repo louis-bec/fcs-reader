@@ -5,7 +5,7 @@ class FcsReader.Routers.Entries extends Backbone.Router
 
   initialize: ->
     @collection = new FcsReader.Collections.Entries()
-    @collection.fetch()
+    @collection.fetch({reset: true})
 
   index: ->
     view = new FcsReader.Views.EntriesIndex(collection: @collection)
