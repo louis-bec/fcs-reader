@@ -9,7 +9,7 @@ class FcsReader.Routers.Entries extends Backbone.Router
 
   index: ->
     view = new FcsReader.Views.EntriesIndex(collection: @collection)
-    $('.raffler-container').html(view.render().el)
+    $('.sub-container').html(view.render().el)
 
   show: (id) ->
     alert "Entry #{id}"

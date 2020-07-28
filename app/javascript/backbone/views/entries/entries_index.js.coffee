@@ -1,7 +1,7 @@
 class FcsReader.Views.EntriesIndex extends Backbone.View
 
   template: _.template("
-    <h1> Raffler#index </h1>
+    <h1> Raffler </h1>
     <ul>
       <% for (var i = 0; i < entries.length; i++) { %>
         <li><%= i %></li>
