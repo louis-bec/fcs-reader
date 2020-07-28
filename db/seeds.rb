@@ -5,3 +5,11 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+Entry.create!(name: 'Ark Man')
+Entry.create!(name: 'Beta Steel')
+Entry.create!(name: 'Carli Anderson')
+Entry.create!(name: 'Dirt Rally')
+Entry.create!(name: 'Frank Larson')
+Entry.create!(name: 'Gigi Brown')
+Entry.create!(name: 'Harry Lark')

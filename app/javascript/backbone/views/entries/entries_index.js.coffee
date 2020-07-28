@@ -1,7 +1,13 @@
 class FcsReader.Views.EntriesIndex extends Backbone.View
 
-  template: _.template('<h1> Hello1 </h1')
+  template: _.template("
+    <h1> Raffler#index </h1>
+    <%= entries.length %> 
+  ")
 
-  render: -> 
-    $(@el).html(@template())
+  initialize: ->
+    @collection.on('reset', @render, this)
+
+  render: ->
+    $(@el).html(@template({entries: @collection}))
     this
