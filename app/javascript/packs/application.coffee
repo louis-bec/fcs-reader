@@ -14,10 +14,9 @@ require("backbone")
 require("backbone/fcs_reader")
 # import routers
 # TODO: maybe can move this logic to the routers folder
-backbone_coffee = require.context('backbone', true, /^.*\.(coffee|eco)$/)
+backbone_coffee = require.context('backbone', true, /^.*\.coffee$/)
 for file in backbone_coffee.keys()
   do (file) ->
-    console.log(file)
     backbone_coffee(file)
 
 # Uncomment to copy all static images under ../images to the output folder and reference
