@@ -22,8 +22,8 @@ class EntriesController < ApplicationController
   end
 
   def update
-    entry = Entry.find(params[:id])
-    entry.update_attributes!(params[:entry])
+    entry = Entry.find(entry_params[:id])
+    entry.update!(winner: entry_params[:winner])
     render json: entry
   end
 
@@ -34,6 +34,6 @@ class EntriesController < ApplicationController
   private
 
   def entry_params
-    params.require(:entry).permit(:name)
+    params.require(:entry).permit(:id, :name, :winner)
   end
 end
