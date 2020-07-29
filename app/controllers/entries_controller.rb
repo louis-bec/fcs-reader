@@ -10,8 +10,15 @@ class EntriesController < ApplicationController
   end
 
   def create
-    entry = Entry.create! params
-    render json: entry
+    @entry = Entry.new(entry_params)
+    if @entry.save
+      render json: @entry
+    else
+      raise 'can not save entry'
+    end
+  rescue StandardError => e
+    puts e.message
+    render json: { message: e.message }, status: 500
   end
 
   def update
@@ -22,5 +29,11 @@ class EntriesController < ApplicationController
 
   def destroy
     render json: Entry.destroy(params[:id])
+  end
+
+  private
+
+  def entry_params
+    params.require(:entry).permit(:name)
   end
 end
