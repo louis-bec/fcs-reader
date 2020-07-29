@@ -4,13 +4,13 @@ class FcsReader.Views.EntriesIndex extends Backbone.View
     <h1> Raffler </h1>
     <ul>
       <% for (var i = 0; i < entries.length; i++) { %>
-        <li><%= i %></li>
+        <li><%= entries.at(i).get('name') %></li>
       <% } %>
     </ul>
   ")
 
   initialize: ->
-    this.collection.on('all', @render, this)
+    this.collection.on('reset', @render ,this)
 
   render: ->
     $(@el).html(@template(entries: @collection))
