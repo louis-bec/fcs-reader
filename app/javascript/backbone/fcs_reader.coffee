@@ -5,7 +5,7 @@ window.FcsReader =
   Views: {}
   init: -> 
     new FcsReader.Routers.Entries()
-    Backbone.history.start()
+    Backbone.history.start(pushState: true)
 
 $(document).ready -> 
   FcsReader.init()
