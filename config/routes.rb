@@ -13,5 +13,5 @@ Rails.application.routes.draw do
     resources :entries
   end
 
-  get 'raffler/index'
+  get 'raffler/*path', to: 'raffler#index'
 end
