@@ -1,0 +1,1 @@
+require("rafller_app")
