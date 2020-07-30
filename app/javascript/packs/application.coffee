@@ -10,23 +10,7 @@ require("channels")
 require("jquery")
 require("underscore")
 require("backbone")
-# import backbone related coffee files
-require("backbone/fcs_reader")
-# import other backbone related files
-# NOTE: HAVE TO IMPORT MODELS BEFORE COLLECTIONS
-backboneFileContexts =  []
-backboneFileContexts.push require.context('backbone/models', true, /^.*\.coffee$/)
-backboneFileContexts.push require.context('backbone/collections', true, /^.*\.coffee$/)
-backboneFileContexts.push require.context('backbone/routers', true, /^.*\.coffee$/)
-backboneFileContexts.push require.context('backbone/views', true, /^.*\.coffee$/)
-
-loadCoffeescript = (context)->
-  for file in context.keys()
-    do (file) ->
-      context(file)
-
-for context in backboneFileContexts
-  loadCoffeescript(context)
+require("rafller_app")
 
 # Uncomment to copy all static images under ../images to the output folder and reference
 # them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
